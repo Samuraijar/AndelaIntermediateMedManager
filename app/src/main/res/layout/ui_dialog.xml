@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:minHeight="200dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/schedule_text_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/schedule_text"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:theme="@style/AppTheme">
+            <EditText
+                android:id="@+id/input_medication_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Usage Instruction"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Medication"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/colorPrimary"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/schedule_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:theme="@style/AppTheme">
+            <EditText
+                android:id="@+id/input_medication_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:hint="Schedule"
+                android:inputType="text">
+                <requestFocus/>
+            </EditText>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/schedule_text_notes"
+            android:focusable="true"
+            android:text="@string/status"
+            android:textAppearance="?android:textAppearanceMedium"
+            />
+        <CheckBox
+            android:id="@+id/check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/status"
+            android:layout_centerInParent="true"
+            android:text="@string/completed"/>
+
+        <TextView
+            android:id="@+id/notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/check_box"
+            android:focusable="true"
+            android:text="@string/set_time"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/colorPrimary"/>
+
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/notification"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/schedule_text_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/checkbox"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:theme="@style/AppTheme">
+                <EditText
+                    android:id="@+id/input_medication_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="@string/notification_time"
+                    android:inputType="number"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/time_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/schedule_text_time"
+                android:layout_margin="8dp"
+                android:layout_toEndOf="@id/schedule_text_time"
+                android:layout_toRightOf="@id/schedule_text_time"
+                android:layout_weight="1"
+                android:entries="@array/time"/>
+        </LinearLayout>
+
+
+
+
+        <android.support.v7.widget.AppCompatButton
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/save_button"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/linear_layout"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/transparent"
+            android:elevation="10dp"
+            android:padding="12dp"
+            android:text="@string/save"
+            android:textColor="@color/colorPrimary"
+            android:textColorLink="@color/colorPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold">
+        </android.support.v7.widget.AppCompatButton>
+
+
+        <android.support.v7.widget.AppCompatButton
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/save_cancel"
+            android:layout_alignTop="@id/save_button"
+            android:layout_toLeftOf="@id/save_button"
+            android:layout_toStartOf="@id/save_button"
+            android:background="@android:color/transparent"
+            android:elevation="10dp"
+            android:padding="12dp"
+            android:text="@string/cancel"
+            android:textColor="@color/colorPrimary"
+            android:textColorLink="@color/colorPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold">
+        </android.support.v7.widget.AppCompatButton>
+
+    </RelativeLayout>
+
+</ScrollView>

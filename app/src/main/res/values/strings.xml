@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">AndelaIntermediateMedManager</string>
+
+    <string-array name="time">
+        <item>None</item>
+        <item>Minutes</item>
+        <item>Hours</item>
+        <item>Days</item>
+    </string-array>
+    <string name="signin_other_error">unable to sign in pls check connection and try again</string>
+    <string name="app_title">Andela Intermediate Track Course Project</string>
+    <string name="sign_out">Sign out</string>
+    <string name="signed_out">You are not signed in</string>
+    <string name="sign_in_guide">SIGN IN WITH GOOGLE</string>
+    <string name="logged_in">You are signed in: %s</string>
+    <string name="med_name">[Medication]</string>
+    <string name="morning_dose">\\?</string>
+    <string name="aft_dose">\\?</string>
+    <string name="eve_dose">\\?</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="status">Schedule Status</string>
+    <string name="completed">Completed</string>
+    <string name="set_time">Set Notification Time</string>
+    <string name="notification_time">Remind me in</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+</resources>
