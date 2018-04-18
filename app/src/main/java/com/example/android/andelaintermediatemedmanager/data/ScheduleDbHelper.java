@@ -5,8 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
+
+import java.util.List;
 
 import static android.os.Build.VERSION_CODES.M;
+import static com.example.android.andelaintermediatemedmanager.data.ScheduleContract.ScheduleEntry.COLUMN_MED_DESCRIPTION;
 import static com.example.android.andelaintermediatemedmanager.data.ScheduleContract.ScheduleEntry.COLUMN_TIMESTAMP;
 import static com.example.android.andelaintermediatemedmanager.data.ScheduleContract.ScheduleEntry.TABLE_NAME;
 
@@ -15,6 +19,7 @@ import static com.example.android.andelaintermediatemedmanager.data.ScheduleCont
  */
 
 public class ScheduleDbHelper extends SQLiteOpenHelper {
+
 
 
     // The database name
@@ -76,7 +81,9 @@ public class ScheduleDbHelper extends SQLiteOpenHelper {
                 + ScheduleContract.ScheduleEntry.TABLE_NAME
                 + " SET "
                 + ScheduleContract.ScheduleEntry.COLUMN_MED_DESCRIPTION + "='" + medData.getMedDescription()
+                + "', "
                 + ScheduleContract.ScheduleEntry.COLUMN_MED_INSTRUCTION + "='" + medData.getMedInstruction()
+                + "', "
                 + ScheduleContract.ScheduleEntry.COLUMN_USAGE_STATUS + "='" + medData.getUsageStatus()
                 + "' WHERE " + ScheduleContract.ScheduleEntry._ID + "='" + medData.getScheduleId() + "'";
         Cursor results = db.rawQuery(query, null);
@@ -92,5 +99,29 @@ public class ScheduleDbHelper extends SQLiteOpenHelper {
         Cursor result = db.rawQuery(query, null);
         return result;
 
+    }
+
+    public Cursor searchWord(String query, String[] columns) {
+        String selection = COLUMN_MED_DESCRIPTION + " MATCH ?";
+        String[] selectionArgs = new String[] {query+"*"};
+
+        return query(selection, selectionArgs, columns);
+    }
+
+    private Cursor query(String selection, String[] selectionArgs, String[] columns) {
+        SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+        SQLiteDatabase db = this.getReadableDatabase();
+        builder.setTables(ScheduleContract.ScheduleEntry.TABLE_NAME);
+
+        Cursor cursor = builder.query(db, columns, selection, selectionArgs, null, null, null);
+        if (cursor == null) {
+            return null;
+
+        }else if (!cursor.moveToFirst()) {
+            cursor.close();
+            return null;
+        }
+
+        return cursor;
     }
 }

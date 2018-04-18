@@ -3,15 +3,21 @@ package com.example.android.andelaintermediatemedmanager;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.app.SearchManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,6 +29,11 @@ import android.widget.Toast;
 import com.example.android.andelaintermediatemedmanager.NotificationHandler.AlarmReceiver;
 import com.example.android.andelaintermediatemedmanager.data.MedData;
 import com.example.android.andelaintermediatemedmanager.data.ScheduleDbHelper;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,11 +47,23 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     ArrayList<MedData> medDatas = new ArrayList<>();
     ScheduleDbHelper mDbHelper;
     SwipeRefreshLayout swipeRefreshLayout;
+    GoogleApiClient mGoogleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle("Main Activity");
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,  gso)
+                .build();
+        mGoogleApiClient.connect();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -59,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
             }
         });
+
+
         addSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                             cv.put("MedDescription", medicationDescription.getText().toString());
                             cv.put("MedInstruction", medicationInstruction.getText().toString());
                             cv.put("UsageStatus", "Incomplete");
+
                             mDbHelper= new ScheduleDbHelper(getApplicationContext());
                             Boolean aBoolean = mDbHelper.insertInto(cv);
                             if (aBoolean) {
@@ -124,6 +150,46 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        //SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        //SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        //searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        int clickedItem = item.getItemId();
+        if (clickedItem == R.id.action_sign_out) {
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+            );
+
+
+            return true;
+        } else if (clickedItem == R.id.action_search) {
+
+            onSearchRequested();
+
+
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     public void scheduleNotification (long time, String ScheduleDescription) {
         Calendar calendar = Calendar.getInstance();
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

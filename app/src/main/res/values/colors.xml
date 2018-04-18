@@ -7,4 +7,5 @@
     <color name="white">#ffffff</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="accent">#448aff</color>
+    <color name="black">#000000</color>
 </resources>

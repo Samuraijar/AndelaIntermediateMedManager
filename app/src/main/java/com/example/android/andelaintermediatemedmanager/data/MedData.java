@@ -11,6 +11,8 @@ public class MedData {
     int ScheduleId;
     String MedDescription, MedInstruction, UsageStatus;
 
+
+
     public int getScheduleId(){
         return ScheduleId;
     }
@@ -40,13 +42,13 @@ public class MedData {
     }
 
     public void setUsageStatus (String usageStatus) {
-        UsageStatus = UsageStatus;
+        UsageStatus = usageStatus;
     }
 
     @Override
     public String toString() {
         return "ScheduleId {id-" + ScheduleId + ", MedDescription-" + MedDescription + ", MedInstruction-" +
-                MedInstruction + ", UsageStaus_" + UsageStatus + "}";
+                MedInstruction + ", UsageStatus-" + UsageStatus + "}";
     }
 
 }

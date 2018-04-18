@@ -70,7 +70,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
                 ScheduleDbHelper scheduleDbHelper = new ScheduleDbHelper(v.getContext());
                 Cursor cursor = scheduleDbHelper.deleteSchedule(id);
                 if (cursor.getCount() == 0) {
-                    Toast.makeText(v.getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), R.string.delete, Toast.LENGTH_SHORT).show();
                     new Handler().post(new Runnable() {
                         @Override
                         public void run() {
@@ -83,7 +83,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
                         }
                     });
                 } else {
-                    Toast.makeText(v.getContext(), "Deleted else", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), R.string.deletedelse, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -125,9 +125,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
                             saveId.setMedDescription(scheduleDescription.getText().toString());
                             saveId.setMedInstruction(scheduleNote.getText().toString());
                             if (checkBox.isChecked()) {
-                                saveId.setUsageStatus("Complete");
+                                saveId.setUsageStatus(String.valueOf(R.string.completed));
                             } else {
-                                saveId.setUsageStatus("Incomplete");
+                                saveId.setUsageStatus(String.valueOf(R.string.incomplete));
                             }
                             ScheduleDbHelper helper = new ScheduleDbHelper(v.getContext());
                             Cursor cursor = helper.updateSchedule(saveId);
@@ -145,7 +145,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
                             }
 
                         } else {
-                            Toast.makeText(v.getContext(), "Make a Schedule", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(v.getContext(), R.string.makeschedule, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
